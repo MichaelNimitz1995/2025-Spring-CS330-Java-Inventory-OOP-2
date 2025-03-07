@@ -46,7 +46,15 @@ public class Armour extends Item {
      */
     public Armour()
     {
+        // Initialize all data members (including those inherited from Item)
+        super("");
 
+        this.durability = 0;
+        this.defense = 0;
+        this.material = "";
+        this.modifier = "";
+        this.modifierLevel = 0;
+        this.element = "";
     }
 
     /**
@@ -56,7 +64,15 @@ public class Armour extends Item {
      */
     public Armour(Armour src)
     {
+        // Set and/or copy data members for *this* object based on *src*.
+        super(src.name);
 
+        this.durability = src.durability;
+        this.defense = src.defense;
+        this.material = src.material;
+        this.modifier = src.modifier;
+        this.modifierLevel = src.modifierLevel;
+        this.element = src.element;
     }
 
     /**
@@ -191,7 +207,15 @@ public class Armour extends Item {
     @Override
     public void read(Scanner snr)
     {
+        super.name   = snr.next();
 
+        // Complete this method
+        this.material = snr.next();
+        this.durability = snr.nextInt();
+        this.defense = snr.nextInt();
+        this.modifier = snr.next();
+        this.modifierLevel = snr.nextInt();
+        this.element = snr.next();
     }
 
     /**
@@ -219,7 +243,10 @@ public class Armour extends Item {
         Armour rhsItem = (Armour) rhs;
 
         // Replace the next line
-        return false;
+        return rhsItem.name == this.name
+            && rhsItem.material == this.material
+            && rhsItem.modifier == this.modifier
+            && rhsItem.element == this.element;
     }
 
     /**
@@ -229,7 +256,10 @@ public class Armour extends Item {
     @Override
     public int hashCode()
     {
-        return -1;
+        return this.name.hashCode()
+             + this.material.hashCode()
+             + this.modifier.hashCode()
+             + this.element.hashCode();
     }
 
     /**
@@ -238,7 +268,12 @@ public class Armour extends Item {
     @Override
     public String toString()
     {
-        return "";
+        return String.format("  Nme: %s%n", this.name)
+            + String.format("  Dur: %d%n", this.durability)
+            + String.format("  Def: %d%n", this.defense)
+            + String.format("  Mtl: %s%n", this.material)
+            + String.format("  Mdr: %s (Lvl %d)%n", this.modifier, this.modifierLevel)
+            + String.format("  Emt: %s%n", this.element);
     }
 }
 
